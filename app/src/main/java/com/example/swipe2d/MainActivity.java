@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Declaration
     private SwipeableRecyclerView swipeableRecyclerViewItems;
     private ArrayList<ItemModel> arrayListItems;
     private ItemAdapter itemAdapter;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialisation
         buttonSave = findViewById(R.id.btn_save);
         buttonStart = findViewById(R.id.btn_start);
 
@@ -42,24 +44,25 @@ public class MainActivity extends AppCompatActivity {
         swipeableRecyclerViewItems = findViewById(R.id.rv);
         arrayListItems = new ArrayList<>();
 
-        for (int i = 0; i < 15; i++){
+        // add item to array list
+        for (int i = 0; i < 30; i++){
 
             arrayListItems.add(new ItemModel(
-                    "id",
-                    "item name",
-                    "description"
+                    "id" + String.valueOf(i+1),
+                    "item name " + String.valueOf(i+1),
+                    "description " + String.valueOf(i+1)
             ));
         }
 
+        // setting up adapter
         itemAdapter = new ItemAdapter(arrayListItems, MainActivity.this);
         swipeableRecyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
         swipeableRecyclerViewItems.setAdapter(itemAdapter);
 
-
         DeckAdapter adapter = new DeckAdapter(arrayListItems, this);
         cardStack.setAdapter(adapter);
 
-
+        // button click listener
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,14 +79,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
+        // card stack listener
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
             public void cardSwipedLeft(int position) {
-                arrayListItems.remove(position > 0 ? position-1:position);
-                itemAdapter.notifyDataSetChanged();
-                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        // swipe to delete
         swipeableRecyclerViewItems.setListener(new SwipeLeftRightCallback.Listener() {
             @Override
             public void onSwipedLeft(int position) {
@@ -116,7 +115,5 @@ public class MainActivity extends AppCompatActivity {
             public void onSwipedRight(int position) {
             }
         });
-
-
     }
 }

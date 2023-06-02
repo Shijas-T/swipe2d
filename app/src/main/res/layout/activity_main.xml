@@ -10,12 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
+        android:weightSum="3"
         android:orientation="horizontal">
         <Button
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_margin="7dp"
+            android:layout_margin="4dp"
             android:text="Start"
             android:backgroundTint="#CDB4DB"
             android:layout_weight="1"
@@ -23,11 +23,19 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_margin="7dp"
+            android:layout_margin="4dp"
             android:text="save"
             android:backgroundTint="#CDB4DB"
             android:layout_weight="1"
             android:id="@+id/btn_save"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_margin="4dp"
+            android:text="restart"
+            android:backgroundTint="#CDB4DB"
+            android:layout_weight="1"
+            android:id="@+id/btn_restart"/>
     </LinearLayout>
 
     <!--one side right-->
@@ -48,15 +56,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:layout_marginHorizontal="50dp"
         android:layout_gravity="center_vertical|center_horizontal"
         android:id="@+id/sfl"
         android:orientation="vertical">
-
         <!--below widget is used for creating a swipe deck-->
-        <!--in below widget card spacing is the spacing between cards
-            max visible is the max number of cards which are visible
-            render above is to render the cards
-            rotation degree is the angle of card rotation when card is swiped-->
         <com.daprlabs.cardstack.SwipeDeck
             android:id="@+id/swipe_deck"
             android:layout_width="match_parent"
@@ -66,7 +70,6 @@
             swipedeck:max_visible="3"
             swipedeck:render_above="true"
             swipedeck:rotation_degrees="15" />
-
     </com.daprlabs.cardstack.SwipeFrameLayout>
 
 </LinearLayout>
