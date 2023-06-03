@@ -49,8 +49,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
 
         if (arrayListItems.get(position).getItemStatus() == "Status: No")
             holder.linearLayoutStatusColor.setBackgroundColor(Color.RED);
-        if (arrayListItems.get(position).getItemStatus() == "Status: Yes")
+        else if (arrayListItems.get(position).getItemStatus() == "Status: Yes")
             holder.linearLayoutStatusColor.setBackgroundColor(Color.GREEN);
+        else holder.linearLayoutStatusColor.setBackgroundColor(Color.WHITE);
 
         holder.parent.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:weightSum="3"
         android:orientation="horizontal">
         <Button
@@ -24,18 +24,19 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_margin="4dp"
-            android:text="save"
-            android:backgroundTint="#CDB4DB"
-            android:layout_weight="1"
-            android:id="@+id/btn_save"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_margin="4dp"
             android:text="restart"
             android:backgroundTint="#CDB4DB"
             android:layout_weight="1"
             android:id="@+id/btn_restart"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_margin="4dp"
+            android:text="save"
+            android:backgroundTint="#CDB4DB"
+            android:layout_weight="1"
+            android:id="@+id/btn_save"/>
+
     </LinearLayout>
 
     <!--one side right-->

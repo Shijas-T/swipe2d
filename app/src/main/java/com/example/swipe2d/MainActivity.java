@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.daprlabs.cardstack.SwipeDeck;
@@ -30,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonStart, buttonSave, buttonRestart;
 
     private SwipeDeck cardStack;
-    SwipeFrameLayout sfl;
+    private DeckAdapter deckAdapter;
+    private SwipeFrameLayout sfl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
         buttonStart = findViewById(R.id.btn_start);
         buttonRestart = findViewById(R.id.btn_restart);
 
-        cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
+        buttonRestart.setVisibility(View.GONE);
+        buttonSave.setVisibility(View.GONE);
+
+        cardStack = findViewById(R.id.swipe_deck);
         sfl = findViewById(R.id.sfl);
 
         swipeableRecyclerViewItems = findViewById(R.id.rv);
@@ -64,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         swipeableRecyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
         swipeableRecyclerViewItems.setAdapter(itemAdapter);
 
-        DeckAdapter adapter = new DeckAdapter(arrayListItems, this);
-        cardStack.setAdapter(adapter);
+        deckAdapter = new DeckAdapter(arrayListItems, this);
+        cardStack.setAdapter(deckAdapter);
 
         // button click listener
         buttonStart.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +79,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 swipeableRecyclerViewItems.setVisibility(View.GONE);
                 sfl.setVisibility(View.VISIBLE);
+
+                buttonStart.setVisibility(View.GONE);
+
+                buttonRestart.setVisibility(View.VISIBLE);
+                buttonSave.setVisibility(View.VISIBLE);
+                LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.5f);
+                layoutParams1.setMargins(4,4,4,4);
+                buttonRestart.setLayoutParams(layoutParams1);
+                LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.5f);
+                layoutParams2.setMargins(4,4,4,4);
+                buttonSave.setLayoutParams(layoutParams2);
+
             }
         });
 
@@ -81,14 +99,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 swipeableRecyclerViewItems.setVisibility(View.VISIBLE);
                 sfl.setVisibility(View.GONE);
+
+                buttonRestart.setVisibility(View.GONE);
+                buttonSave.setVisibility(View.GONE);
+
+                buttonStart.setVisibility(View.VISIBLE);
+                LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
+                layoutParams1.setMargins(4,4,4,4);
+                buttonStart.setLayoutParams(layoutParams1);
             }
         });
 
         buttonRestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                swipeableRecyclerViewItems.setVisibility(View.VISIBLE);
-                sfl.setVisibility(View.GONE);
             }
         });
 
@@ -98,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             public void cardSwipedLeft(int position) {
                 Log.e(TAG, "cardSwipedLeft: " + String.valueOf(arrayListItems.get(position).getItemId()));
                 arrayListItems.get(position).setItemStatus("Status: No");
-                adapter.notifyDataSetChanged();
+//                deckAdapter.notifyDataSetChanged();
                 itemAdapter.notifyDataSetChanged();
             }
 
@@ -107,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "cardSwipedRight: " + String.valueOf(arrayListItems.get(position).getItemId()));
                 arrayListItems.get(position).setItemStatus("Status: Yes");
                 itemAdapter.notifyDataSetChanged();
-                adapter.notifyDataSetChanged();
+//                deckAdapter.notifyDataSetChanged();
 
             }
 
@@ -129,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "item with id "+arrayListItems.get(position).getItemId()+ " is removed", Toast.LENGTH_SHORT).show();
                 arrayListItems.remove(position);
                 itemAdapter.notifyDataSetChanged();
-                adapter.notifyDataSetChanged();
+                deckAdapter.notifyDataSetChanged();
             }
 
             @Override
