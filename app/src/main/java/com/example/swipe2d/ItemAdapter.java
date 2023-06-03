@@ -2,6 +2,7 @@ package com.example.swipe2d;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         holder.textViewItemId.setText(arrayListItems.get(position).getItemId());
         holder.textViewItemName.setText(arrayListItems.get(position).getItemName());
         holder.textViewItemDescription.setText(arrayListItems.get(position).getItemDescription());
+        holder.textViewItemStatus.setText(arrayListItems.get(position).getItemStatus());
+
+        if (arrayListItems.get(position).getItemStatus() == "Status: No")
+            holder.linearLayoutStatusColor.setBackgroundColor(Color.RED);
+        if (arrayListItems.get(position).getItemStatus() == "Status: Yes")
+            holder.linearLayoutStatusColor.setBackgroundColor(Color.GREEN);
 
         holder.parent.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -62,16 +69,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
     //Every view inside the recycler view is declared and initialised here
     public class ViewHolder extends RecyclerView.ViewHolder{
         //Declaration
-        private TextView textViewItemId,textViewItemName, textViewItemDescription;
-        private LinearLayout parent;
+        private TextView textViewItemId,textViewItemName, textViewItemDescription, textViewItemStatus;
+        private LinearLayout parent, linearLayoutStatusColor;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewItemId = itemView.findViewById(R.id.tv_item_id);
             textViewItemName = itemView.findViewById(R.id.tv_item_name);
             textViewItemDescription = itemView.findViewById(R.id.tv_item_description);
+            textViewItemStatus = itemView.findViewById(R.id.tv_item_status);
 
             parent = itemView.findViewById(R.id.single_item);
+            linearLayoutStatusColor = itemView.findViewById(R.id.ll_status_color);
         }
     }
 }

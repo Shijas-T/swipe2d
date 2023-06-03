@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -24,7 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ItemModel> arrayListItems;
     private ItemAdapter itemAdapter;
 
-    private Button buttonStart, buttonSave;
+    private static final String TAG = "MainActivity";
+
+    private Button buttonStart, buttonSave, buttonRestart;
 
     private SwipeDeck cardStack;
     SwipeFrameLayout sfl;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialisation
         buttonSave = findViewById(R.id.btn_save);
         buttonStart = findViewById(R.id.btn_start);
+        buttonRestart = findViewById(R.id.btn_restart);
 
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
         sfl = findViewById(R.id.sfl);
@@ -50,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
             arrayListItems.add(new ItemModel(
                     "id" + String.valueOf(i+1),
                     "item name " + String.valueOf(i+1),
-                    "description " + String.valueOf(i+1)
+                    "description " + String.valueOf(i+1),
+                    "Status: "
             ));
         }
 
@@ -79,14 +84,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        buttonRestart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                swipeableRecyclerViewItems.setVisibility(View.VISIBLE);
+                sfl.setVisibility(View.GONE);
+            }
+        });
+
         // card stack listener
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
             public void cardSwipedLeft(int position) {
+                Log.e(TAG, "cardSwipedLeft: " + String.valueOf(arrayListItems.get(position).getItemId()));
+                arrayListItems.get(position).setItemStatus("Status: No");
+                adapter.notifyDataSetChanged();
+                itemAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void cardSwipedRight(int position) {
+                Log.e(TAG, "cardSwipedRight: " + String.valueOf(arrayListItems.get(position).getItemId()));
+                arrayListItems.get(position).setItemStatus("Status: Yes");
+                itemAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
 
             }
 

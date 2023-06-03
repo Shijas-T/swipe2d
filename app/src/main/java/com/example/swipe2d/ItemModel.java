@@ -5,11 +5,17 @@ public class ItemModel {
     private String itemId;
     private String itemName;
     private String itemDescription;
+    private String itemStatus;
 
-    public ItemModel(String itemId, String itemName, String itemDescription) {
+    public ItemModel(String itemId, String itemName, String itemDescription, String itemStatus) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemDescription = itemDescription;
+        this.itemStatus = itemStatus;
+    }
+
+    public void setItemStatus(String itemStatus) {
+        this.itemStatus = itemStatus;
     }
 
     public String getItemId() {
@@ -22,5 +28,9 @@ public class ItemModel {
 
     public String getItemDescription() {
         return itemDescription;
+    }
+
+    public String getItemStatus() {
+        return itemStatus;
     }
 }

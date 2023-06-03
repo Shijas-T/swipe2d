@@ -1,10 +1,12 @@
 package com.example.swipe2d;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -49,6 +51,12 @@ public class DeckAdapter extends BaseAdapter {
         ((TextView) v.findViewById(R.id.tv_s_item_id)).setText(arrayListItem.get(position).getItemId());
         ((TextView) v.findViewById(R.id.tv_s_item_name)).setText(arrayListItem.get(position).getItemName());
         ((TextView) v.findViewById(R.id.tv_s_item_description)).setText(arrayListItem.get(position).getItemDescription());
+        ((TextView) v.findViewById(R.id.tv_s_item_status)).setText(arrayListItem.get(position).getItemStatus());
+        if (arrayListItem.get(position).getItemStatus() == "Status: No")
+            ((LinearLayout) v.findViewById(R.id.ll_status_colour)).setBackgroundColor(Color.RED);
+        if (arrayListItem.get(position).getItemStatus() == "Status: Yes")
+            ((LinearLayout) v.findViewById(R.id.ll_status_colour)).setBackgroundColor(Color.GREEN);
+
         return v;
     }
 }
