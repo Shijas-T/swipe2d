@@ -142,7 +142,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void cardsDepleted() {
-
+                buttonRestart.setVisibility(View.GONE);
+                LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
+                layoutParams1.setMargins(4,4,4,4);
+                buttonSave.setLayoutParams(layoutParams1);
             }
         });
 
